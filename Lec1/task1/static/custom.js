@@ -1,5 +1,4 @@
-
-document.addEventListener('DOMContentLoaded', function() {
+window.onload = function(){
 
     var form = document.querySelector('form');
     var num1 = document.getElementById('num1');
@@ -49,4 +48,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
       resultprint.textContent = 'Result: ' + result;
     });
-  });
+  };
