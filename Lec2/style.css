@@ -86,6 +86,9 @@ th{
     cursor: pointer;
 }
 
+i:hover{
+    cursor: pointer;
+}
 /* =============================================== */
 /* =============================================== */
 /* =============================================== */
@@ -95,7 +98,7 @@ th{
     visibility: hidden;
     padding: 15px;
     position: absolute;
-    width: 700px;
+    width:50%;
     top: 35%;
     left:25%;
     background-color: #fff;
@@ -104,7 +107,7 @@ th{
     visibility: hidden;
     padding: 15px;
     position: absolute;
-    width: 700px;
+    width: 50%;
     top: 35%;
     left:25%;
     background-color: #fff;
