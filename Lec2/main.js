@@ -19,6 +19,10 @@ let cancelEdits = document.querySelectorAll(".cancelEdit")
 editRequests.forEach(function(editRequest) {
     editRequest.addEventListener('click', function(e){
         editForm.style.visibility = 'visible';
+        let employeeN = editRequest.parentElement.parentElement.parentElement.querySelector(".name").innerText;
+        let nameA = document.querySelector(".nothing h2");
+        // document.writeln(employeeN, nameA)
+        nameA.innerText = "Edit Employee ' " + employeeN + "'";
         editConfirm.addEventListener('click', function(e){
             let employeeName = document.querySelector('#editpage .employeeName').value.trim();
             let employeeBirth = document.querySelector('#editpage .employeeBirth').value;
@@ -123,12 +127,12 @@ asscendingEle.addEventListener('click', function(e){
       // let employeeName = asscendingEle.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
       // let employeeBirth = asscendingEle.parentElement.parentElement.previousElementSibling.previousElementSibling.innerText;
       // let employeeSkills = asscendingEle.parentElement.parentElement.previousElementSibling.innerText;
-      let currName = curr_row.querySelector('.name').innerText;
-      let currBirth = curr_row.querySelector('.birthDate').innerText;
-      let currSkills = curr_row.querySelector('.skills').innerText;
-      let nextName = nextRow.querySelector('.name').innerText;
-      let nextBirth = nextRow.querySelector('.birthDate').innerText;
-      let nextSkills =  nextRow.querySelector('.skills').innerText;
+      let currName = curr_row.querySelector('.name').textContent;
+      let currBirth = curr_row.querySelector('.birthDate').textContent;
+      let currSkills = curr_row.querySelector('.skills').textContent;
+      let nextName = nextRow.querySelector('.name').textContent;
+      let nextBirth = nextRow.querySelector('.birthDate').textContent;
+      let nextSkills =  nextRow.querySelector('.skills').textContent;
       const currRowInner = `
                 <td class="num">${Number(i)+1}</td>
               <td class="name">${currName}</td>
