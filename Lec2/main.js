@@ -24,11 +24,11 @@ editRequests.forEach(function(editRequest) {
             let employeeBirth = document.querySelector('#editpage .employeeBirth').value;
             let employeeSkills = document.querySelector('#editpage .employeeSkills').value.trim();
 
-            let i = editRequest.parentElement.parentElement.previousElementSibling;
-            console.log(i)
+            let i = editRequest.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling;
+
             let curr_row = editRequest.parentElement.parentElement.parentElement;
             const rowContainer = `
-                  <td class="num">${i}</td>
+                  <td class="num">${i.innerText}</td>
                   <td class="name">${employeeName}</td>
                   <td class="birthDate">${employeeBirth}</td>
                   <td class="skills">${employeeSkills}</td>
@@ -42,7 +42,9 @@ editRequests.forEach(function(editRequest) {
                     </div>
                   </td>`
         curr_row.innerHTML = '<tr>' + rowContainer + '</tr>' ;
+        editForm.style.visibility = 'hidden';
         });
+
     });
 });
 
@@ -95,6 +97,7 @@ addConfirm.addEventListener('click', function(e){
               </td>`
     new_row.innerHTML+= rowContainer;
     table.appendChild(new_row);
+    addForm.style.visibility = 'hidden';
 });
 
 // editConfirm.addEventListener('click', function(e){
@@ -105,3 +108,57 @@ addConfirm.addEventListener('click', function(e){
 //     let curr_row = editRequest.parentElement;
 //     console.log(curr_row);
 // });
+
+asscendingEles.forEach(function(asscendingEle){
+asscendingEle.addEventListener('click', function(e){
+  let i = asscendingEle.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
+
+      // let temp = document.createElement('tr');
+      let curr_row =  e.target.parentElement.parentElement.parentElement;
+      let nextRow = e.target.parentElement.parentElement.parentElement.nextElementSibling;
+      // temp.innerHTML = curr_row.innerHTML;
+      // curr_row.innerHTML = nextRow.innerHTML;
+      // nextRow.innerHTML = temp.innerHTML;
+
+      // let employeeName = asscendingEle.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
+      // let employeeBirth = asscendingEle.parentElement.parentElement.previousElementSibling.previousElementSibling.innerText;
+      // let employeeSkills = asscendingEle.parentElement.parentElement.previousElementSibling.innerText;
+      let currName = curr_row.querySelector('.name').innerText;
+      let currBirth = curr_row.querySelector('.birthDate').innerText;
+      let currSkills = curr_row.querySelector('.skills').innerText;
+      let nextName = nextRow.querySelector('.name').innerText;
+      let nextBirth = nextRow.querySelector('.birthDate').innerText;
+      let nextSkills =  nextRow.querySelector('.skills').innerText;
+      const currRowInner = `
+                <td class="num">${Number(i)+1}</td>
+              <td class="name">${currName}</td>
+              <td class="birthDate">${currBirth}</td>
+              <td class="skills">${currSkills}</td>
+              <td class="action">
+                <div class="arrows">
+                  <i class="fa-solid fa-arrow-down-up-across-line"></i>
+                </div>
+                <div class="btns">
+                  <div class="edit">Edit</div>
+                  <div class="delete">Delete</div>
+                </div>
+              </td>`
+      const nextRowInner = `
+      <td class="num">${i}</td>
+    <td class="name">${nextName}</td>
+    <td class="birthDate">${nextBirth}</td>
+    <td class="skills">${nextSkills}</td>
+    <td class="action">
+      <div class="arrows">
+        <i class="fa-solid fa-arrow-down-up-across-line"></i>
+      </div>
+      <div class="btns">
+        <div class="edit">Edit</div>
+        <div class="delete">Delete</div>
+      </div>
+    </td>`
+
+      curr_row.innerHTML = nextRowInner;
+      nextRow.innerHTML = currRowInner;
+});
+});
