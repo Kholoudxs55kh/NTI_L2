@@ -1,205 +1,164 @@
-body{
-    position: relative;
-}
+let table = document.getElementById('table')
+let editForm = document.getElementById("editpage");
+let addForm = document.getElementById("addpage");
 
-.mainpage{
-    display:flex;
-    width:70%;
-    margin-left:15%;
-    margin-right: 15%;
-    flex-direction: column;
-}
-
-#add{
-    width:150px;
-    background-color: rgba(27, 82, 248, 0.848);
-    text-align: center;
-    height:40px;
-    color:aliceblue;
-    line-height: 40px;
-    border-radius: 5%;
-    margin-bottom: 3%;
-    font-size: large;
-}
-
-#add:hover{
-    cursor: pointer;
-}
-
-table{
-    border: 0.5px solid #00000058;
-    border-spacing: 0px;
-}
-
-thead{
-    background-color: #dddddd7c;
-    height: 35px;
-}
-
-td{
-    border: 0.5px solid #00000058;
-    height:40px;
-    padding-left: 5px;
-}
+let addRequest = document.getElementById("add");
+let asscendingEles = document.querySelectorAll('i'); // re asscend when click
+let editRequests = document.querySelectorAll(".edit");
+let deleteCommands = document.querySelectorAll(".delete");
 
 
-th{
-    border: 0.5px solid #00000058;
-}
+let editConfirm = document.getElementById('editApprove');
+let addConfirm = document.getElementById("addApprove");
 
-.action{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+let exitEditForm = document.getElementById('exit');
+let exitAddForm = document.getElementById('exitEdit');
 
-.btns{
-    width: 200px;
-    display: flex;
-    justify-content: space-around;
-}
-.edit {
-    width: 80px;
-    height:30px;
-    line-height: 30px;
-    text-align: center;
-    background-color: green;
-    color: aliceblue;
-    border-radius: 5%;
-}
+let cancelEdits = document.querySelectorAll(".cancelEdit")
 
-.edit:hover{
-    cursor: pointer;
-}
+editRequests.forEach(function(editRequest) {
+    editRequest.addEventListener('click', function(e){
+        editForm.style.visibility = 'visible';
+        editConfirm.addEventListener('click', function(e){
+            let employeeName = document.querySelector('#editpage .employeeName').value.trim();
+            let employeeBirth = document.querySelector('#editpage .employeeBirth').value;
+            let employeeSkills = document.querySelector('#editpage .employeeSkills').value.trim();
 
-.delete{
-    width: 100px;
-    height:30px;
-    line-height: 30px;
-    text-align: center;
-    background-color: red;
-    color: aliceblue;
-    border-radius: 5%;
-}
+            let i = editRequest.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling;
 
-.delete:hover{
-    cursor: pointer;
-}
+            let curr_row = editRequest.parentElement.parentElement.parentElement;
+            const rowContainer = `
+                  <td class="num">${i.innerText}</td>
+                  <td class="name">${employeeName}</td>
+                  <td class="birthDate">${employeeBirth}</td>
+                  <td class="skills">${employeeSkills}</td>
+                  <td class="action">
+                    <div class="arrows">
+                      <i class="fa-solid fa-arrow-down-up-across-line"></i>
+                    </div>
+                    <div class="btns">
+                      <div class="edit">Edit</div>
+                      <div class="delete">Delete</div>
+                    </div>
+                  </td>`
+        curr_row.innerHTML = '<tr>' + rowContainer + '</tr>' ;
+        editForm.style.visibility = 'hidden';
+        });
 
-i:hover{
-    cursor: pointer;
-}
-/* =============================================== */
-/* =============================================== */
-/* =============================================== */
+    });
+});
 
+addRequest.addEventListener('click', function(e){
+    addForm.style.visibility = 'visible';
+});
 
-#editpage{
-    visibility: hidden;
-    padding: 15px;
-    position: absolute;
-    width:50%;
-    top: 35%;
-    left:25%;
-    background-color: #fff;
-}
-#addpage{
-    visibility: hidden;
-    padding: 15px;
-    position: absolute;
-    width: 50%;
-    top: 35%;
-    left:25%;
-    background-color: #fff;
-}
-.nothing{
-    display: flex;
-    justify-content: space-between;
-}
-#exit, #exitEdit {
+exitAddForm.addEventListener('click', function(e){
+    addForm.style.visibility = 'hidden';
+});
 
-    color: #929191;
-    font-size: larger;
-    font-weight: bold;
-}
+exitEditForm.addEventListener('click', function(e){
+    editForm.style.visibility = 'hidden';
+});
 
-#exit:hover, #exitEdit:hover
-{
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-#exitEdit
-.employeeName{
-    height: 25px;
-    width: 95%;
-}
+cancelEdits.forEach(function(cancelEdit){
+    cancelEdit.addEventListener('click', function(e){
+        cancelEdit.parentElement.parentElement.style.visibility = 'hidden';
+    });
+});
 
-.employeeBirth{
-    height: 25px;
-    width: 95%;
-}
+deleteCommands.forEach(function(deleteCommand){
+    deleteCommand.addEventListener('click', function(e){
+        const MemberDelet = deleteCommand.parentElement.parentElement.parentElement;
+        MemberDelet.parentNode.removeChild(MemberDelet);
+    });
+});
 
-.employeeSkills{
-    height: 25px;
-    width: 95%;
-}
+addConfirm.addEventListener('click', function(e){
+    let employeeName = document.querySelector('#addpage .employeeName').value.trim();
+    let employeeBirth = document.querySelector('#addpage .employeeBirth').value;
+    let employeeSkills = document.querySelector('#addpage .employeeSkills').value.trim();
 
-.editbtns{
-    width: min-content;
-    display: flex;
-    justify-content: space-around;
-    margin-top: 10px;
-}
+    let i = document.querySelectorAll('tr').length;
 
-#editApprove{
-    background-color: #0038e294;
-    width: 60px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 5%;
-    color: aliceblue;
-    margin-right: 2px;
-}
-#editApprove:hover{
-    cursor: pointer;
-}
+    const new_row = document.createElement('tr');
+    const rowContainer = `
+                <td class="num">${i}</td>
+              <td class="name">${employeeName}</td>
+              <td class="birthDate">${employeeBirth}</td>
+              <td class="skills">${employeeSkills}</td>
+              <td class="action">
+                <div class="arrows">
+                  <i class="fa-solid fa-arrow-down-up-across-line"></i>
+                </div>
+                <div class="btns">
+                  <div class="edit">Edit</div>
+                  <div class="delete">Delete</div>
+                </div>
+              </td>`
+    new_row.innerHTML+= rowContainer;
+    table.appendChild(new_row);
+    addForm.style.visibility = 'hidden';
+});
 
-.cancelEdit{
-    background-color: #83848794;
-    width: 60px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 5%;
-    color: aliceblue;
-}
+// editConfirm.addEventListener('click', function(e){
+//     let employeeName = document.querySelector('#editpage .employeeName').value.trim();
+//     let employeeBirth = document.querySelector('#editpage .employeeBirth').value;
+//     let employeeSkills = document.querySelector('#editpage .employeeSkills').value.trim();
 
-.cancelEdit:hover{
-    cursor: pointer;
-}
+//     let curr_row = editRequest.parentElement;
+//     console.log(curr_row);
+// });
 
-#addApprove{
-    background-color: #0038e294;
-    width: 130px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 5%;
-    color: aliceblue;
-    margin-right: 2px;
-}
+asscendingEles.forEach(function(asscendingEle){
+asscendingEle.addEventListener('click', function(e){
+  let i = asscendingEle.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
 
-#addApprove:hover{
-    cursor: pointer;
-}
-.test:hover > .main {
-    z-index: -1;
-}
-.test:hover > .editpage{
-    visibility: visible;
-}
-.test:hover > body{
-    background-color: #83848794;
-}
+      // let temp = document.createElement('tr');
+      let curr_row =  e.target.parentElement.parentElement.parentElement;
+      let nextRow = e.target.parentElement.parentElement.parentElement.nextElementSibling;
+      // temp.innerHTML = curr_row.innerHTML;
+      // curr_row.innerHTML = nextRow.innerHTML;
+      // nextRow.innerHTML = temp.innerHTML;
+
+      // let employeeName = asscendingEle.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
+      // let employeeBirth = asscendingEle.parentElement.parentElement.previousElementSibling.previousElementSibling.innerText;
+      // let employeeSkills = asscendingEle.parentElement.parentElement.previousElementSibling.innerText;
+      let currName = curr_row.querySelector('.name').innerText;
+      let currBirth = curr_row.querySelector('.birthDate').innerText;
+      let currSkills = curr_row.querySelector('.skills').innerText;
+      let nextName = nextRow.querySelector('.name').innerText;
+      let nextBirth = nextRow.querySelector('.birthDate').innerText;
+      let nextSkills =  nextRow.querySelector('.skills').innerText;
+      const currRowInner = `
+                <td class="num">${Number(i)+1}</td>
+              <td class="name">${currName}</td>
+              <td class="birthDate">${currBirth}</td>
+              <td class="skills">${currSkills}</td>
+              <td class="action">
+                <div class="arrows">
+                  <i class="fa-solid fa-arrow-down-up-across-line"></i>
+                </div>
+                <div class="btns">
+                  <div class="edit">Edit</div>
+                  <div class="delete">Delete</div>
+                </div>
+              </td>`
+      const nextRowInner = `
+      <td class="num">${i}</td>
+    <td class="name">${nextName}</td>
+    <td class="birthDate">${nextBirth}</td>
+    <td class="skills">${nextSkills}</td>
+    <td class="action">
+      <div class="arrows">
+        <i class="fa-solid fa-arrow-down-up-across-line"></i>
+      </div>
+      <div class="btns">
+        <div class="edit">Edit</div>
+        <div class="delete">Delete</div>
+      </div>
+    </td>`
+
+      curr_row.innerHTML = nextRowInner;
+      nextRow.innerHTML = currRowInner;
+});
+});
